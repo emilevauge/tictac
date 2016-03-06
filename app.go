@@ -74,8 +74,8 @@ func tictacHandler(w http.ResponseWriter, req *http.Request) {
 		hostname, _ := os.Hostname()
 		messages.Traces = append(messages.Traces, hostname+" - "+time.Now().String())
 		request := gorequest.New()
-		_, body, errs := request.Post("http://"+u.Host+":8080").
-			Set("Host", u.Host).
+		_, body, errs := request.Post("http://"+req.Host).
+			Set("Host", req.Host).
 			Send(*messages).
 			End()
 		if len(errs) > 0 {
@@ -85,6 +85,7 @@ func tictacHandler(w http.ResponseWriter, req *http.Request) {
 			return
 		}
 
+		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprint(w, body)
 	}
 }

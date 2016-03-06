@@ -22,5 +22,8 @@
       "intervalSeconds": 20,
       "maxConsecutiveFailures": 3
     }
-  ]
+  ],
+  "labels": {
+      "traefik.frontend.passHostHeader": "true"
+  }
 }
